@@ -1,0 +1,220 @@
+{% extends "users/basic.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h1 class="text-center mb-5">
+        Admin Analytics Dashboard
+    </h1>
+
+    <div class="row">
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card shadow">
+
+                <div class="card-body text-center">
+
+                    <h5>Total Revenue</h5>
+
+                    <h3>
+                        ₹{{ total_revenue.total|default:"0" }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card shadow">
+
+                <div class="card-body text-center">
+
+                    <h5>Daily Revenue</h5>
+
+                    <h3>
+                        ₹{{ daily_revenue.total|default:"0" }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card shadow">
+
+                <div class="card-body text-center">
+
+                    <h5>Weekly Revenue</h5>
+
+                    <h3>
+                        ₹{{ weekly_revenue.total|default:"0" }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card shadow">
+
+                <div class="card-body text-center">
+
+                    <h5>Monthly Revenue</h5>
+
+                    <h3>
+                        ₹{{ monthly_revenue.total|default:"0" }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-md-3 mb-4">
+
+    <div class="card shadow">
+
+        <div class="card-body text-center">
+
+            <h5>Cancellation Rate</h5>
+
+            <h3>
+                {{ cancellation_rate|floatformat:2 }}%
+            </h3>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <div class="row mt-5">
+
+        <div class="col-md-6">
+
+            <div class="card shadow mb-4">
+
+                <div class="card-header">
+                    Most Popular Movies
+                </div>
+
+                <div class="card-body">
+
+                    <ul class="list-group">
+
+                        {% for movie in popular_movies %}
+
+                        <li class="list-group-item d-flex justify-content-between">
+
+                            {{ movie.name }}
+
+                            <span>
+                                {{ movie.total_bookings }} bookings
+                            </span>
+
+                        </li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card shadow mb-4">
+
+                <div class="card-header">
+                    Busiest Theaters
+                </div>
+
+                <div class="card-body">
+
+                    <ul class="list-group">
+
+                        {% for theater in busiest_theaters %}
+
+                        <li class="list-group-item d-flex justify-content-between">
+
+                            {{ theater.name }}
+
+                            <span>
+            {{ theater.booked_seats }} booked
+(
+{{ theater.occupancy_rate|floatformat:1 }}%
+occupied
+)
+                            </span>
+
+                        </li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="row mt-5">
+
+    <div class="col-md-12">
+
+        <div class="card shadow mb-4">
+
+            <div class="card-header">
+                Peak Booking Hours
+            </div>
+
+            <div class="card-body">
+
+                <ul class="list-group">
+
+                    {% for hour in peak_hours %}
+
+                    <li class="list-group-item d-flex justify-content-between">
+
+                        <span>
+                            {{ hour.hour }}:00
+                        </span>
+
+                        <span>
+                            {{ hour.total }} bookings
+                        </span>
+
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
